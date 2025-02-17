@@ -1,5 +1,9 @@
+import 'package:bookly/Features/home/presentation/views/home_view.dart';
+import 'package:bookly/constants.dart';
 import 'package:bookly/core/utils/assets.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:lottie/lottie.dart';
 
 class SplashViewBody extends StatefulWidget {
@@ -20,6 +24,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
       vsync: this,
       duration: const Duration(seconds: 2),
     );
+    navigateToHome();
   }
 
   @override
@@ -55,4 +60,12 @@ class _SplashViewBodyState extends State<SplashViewBody>
       ),
     );
   }
+  
+  void navigateToHome() {
+     Future.delayed(const Duration(seconds: 7), () {
+      Get.to(() => const HomeView(),
+          transition: Transition.fadeIn, duration: kTranstionDuration);
+    });
+  }
+
 }
