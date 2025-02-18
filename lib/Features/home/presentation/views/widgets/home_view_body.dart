@@ -18,12 +18,12 @@ class HomeViewBody extends StatelessWidget {
         children: const [
           CustomAppBarr(),
           FeaturedBooksListView(),
-          const SizedBox(
+          SizedBox(
             height: 50,
           ),
           Text(
             "Best Seller",
-            style: Styles.titelMedium,
+            style: Styles.textstyle18,
           ),
           BestSellerListViewItem()
         ],
@@ -54,7 +54,7 @@ class BestSellerListViewItem extends StatelessWidget {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
