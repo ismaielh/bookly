@@ -14,7 +14,7 @@ class FeaturedListViewItem extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           // استخدام اللون الأحمر كخلفية احتياطية
-          color: Colors.red,
+
           image: const DecorationImage(
             fit: BoxFit.fill,
             image: AssetImage(AssetsData.testImage),

@@ -24,10 +24,17 @@ class _SplashViewBodyState extends State<SplashViewBody>
     // تهيئة متحكم الأنيميشن مع مدة زمنية محددة
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 8),
+      duration: const Duration(seconds: 5), // تعديل المدة إلى 5 ثواني
     )..forward();
-    // استدعاء الدالة التي تنقل إلى الشاشة الرئيسية بعد مدة معينة
-    _navigateToHome();
+
+    // استدعاء الدالة التي تنقل إلى الشاشة الرئيسية بعد انتهاء الأنيميشن
+    _animationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        Future.delayed(const Duration(seconds: 1), () {
+          _navigateToHome();
+        });
+      }
+    });
   }
 
   @override
@@ -53,7 +60,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
             width: size.width * 0.8,
             height: size.height * 0.8,
             fit: BoxFit.contain,
-            repeat: true,
+            repeat: false,
             animate: true,
             controller: _animationController,
           ),
@@ -62,11 +69,9 @@ class _SplashViewBodyState extends State<SplashViewBody>
     );
   }
 
-  // دالة لنقل المستخدم إلى الشاشة الرئيسية بعد 8 ثوانٍ
+  // دالة لنقل المستخدم إلى الشاشة الرئيسية بعد انتهاء الأنيميشن والانتظار لمدة ثانيتين
   void _navigateToHome() {
-    Future.delayed(const Duration(seconds: 8), () {
-      Get.off(() => const HomeView(),
-          transition: Transition.fadeIn, duration: kTranstionDuration);
-    });
+    Get.off(() => const HomeView(),
+        transition: Transition.fadeIn, duration: kTranstionDuration);
   }
 }
