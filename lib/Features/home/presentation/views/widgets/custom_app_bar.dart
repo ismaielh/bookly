@@ -10,7 +10,7 @@ class CustomAppBarr extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       // إضافة الهوامش الأفقية والرأسية لتحديد مساحة Padding
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+      padding: const EdgeInsets.only(left: 24, right: 24, top: 40, bottom: 20),
       child: Row(
         children: [
           // إضافة صورة كجزء من الشريط العلوي
