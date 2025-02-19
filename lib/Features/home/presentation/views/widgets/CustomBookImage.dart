@@ -2,8 +2,8 @@ import 'package:bookly/core/utils/assets.dart';
 import 'package:flutter/material.dart';
 
 // تعريف ويدجيت CustomListViewItem من نوع StatelessWidget
-class FeaturedListViewItem extends StatelessWidget {
-  const FeaturedListViewItem({super.key});
+class CustomBookImage extends StatelessWidget {
+  const CustomBookImage({super.key});
 
   @override
   Widget build(BuildContext context) {
