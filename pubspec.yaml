@@ -28,14 +28,13 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  equatable: ^2.0.7
   flutter:
     sdk: flutter
   flutter_bloc: ^9.0.0
-  
   font_awesome_flutter: ^10.8.0
   go_router: ^14.8.0
   google_fonts: ^6.2.1
-  
   rive: ^0.13.20
   url_launcher: ^6.1.7
   video_player: ^2.9.2

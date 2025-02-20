@@ -1,5 +1,3 @@
-
-
 import 'package:bookly/Features/home/presentation/views/widgets/CustomBookImage.dart';
 import 'package:flutter/material.dart';
 
