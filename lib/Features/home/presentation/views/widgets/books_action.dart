@@ -10,6 +10,7 @@ class BooksAction extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Row(
         children: const [
+          // زر السعر
           Expanded(
             child: CustomButton(
               text: "19.99€",
@@ -21,6 +22,7 @@ class BooksAction extends StatelessWidget {
               ),
             ),
           ),
+          // زر المعاينة المجانية
           Expanded(
             child: CustomButton(
               fontSize: 16,
