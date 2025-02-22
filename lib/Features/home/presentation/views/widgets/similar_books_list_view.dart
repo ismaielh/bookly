@@ -15,7 +15,7 @@ class SimilarBooksListview extends StatelessWidget {
           // إضافة const إلى Padding لتحسين الأداء
           return const Padding(
             padding: EdgeInsets.symmetric(horizontal: 5),
-            child: CustomBookImage(),
+            child: CustomBookImage(imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf6zoRR_FPG7f2knECoYTgOuETejMYPg71vg&s",),
           );
         },
       ),
