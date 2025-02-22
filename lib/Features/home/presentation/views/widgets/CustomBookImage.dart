@@ -1,4 +1,4 @@
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 // تعريف ويدجيت CustomListViewItem من نوع StatelessWidget
@@ -8,17 +8,14 @@ class CustomBookImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // استخدام SizedBox لتحديد ارتفاع العنصر بالنسبة لحجم الشاشة
-    return AspectRatio(
-      aspectRatio: 2.6 / 4,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          // استخدام اللون الأحمر كخلفية احتياطية
-
-          image: DecorationImage(
-            fit: BoxFit.fill,
-            image: NetworkImage(imageUrl),
-          ),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      child: AspectRatio(
+        aspectRatio: 2.6 / 4,
+        child: CachedNetworkImage(
+          imageUrl: imageUrl,
+          errorWidget: (context, url, error) => const Icon(Icons.error),
+          fit: BoxFit.fill,
         ),
       ),
     );
