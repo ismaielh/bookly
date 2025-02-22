@@ -9,7 +9,7 @@ part 'newset_books_state.dart';
 class NewsetBooksCubit extends Cubit<NewsetBooksState> {
   NewsetBooksCubit(this.homeRepo) : super(NewsetBooksInitial());
   final HomeRepo homeRepo;
-  Future<void> fetchNewsetBooks() async {
+  Future<void> fetchNewsetpBooks() async {
     emit(NewsetBooksLoading());
     var result = await homeRepo.fetchFeaturedBooks();
     result.fold(
