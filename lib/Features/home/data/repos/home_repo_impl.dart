@@ -56,7 +56,11 @@ class HomeRepoImpl implements HomeRepo {
       return left(ServerFailure.fromDioError(e));
     } on Exception catch (e) {
       // في حالة حدوث أي خطأ آخر، نرجعه كـ ServerFailure
-      return left(ServerFailure(e.toString()));
+      return left(
+        ServerFailure(
+          e.toString(),
+        ),
+      );
     }
   }
 }
