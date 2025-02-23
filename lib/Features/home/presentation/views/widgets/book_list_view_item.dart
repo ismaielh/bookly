@@ -3,7 +3,6 @@ import 'package:bookly/Features/home/presentation/views/widgets/CustomBookImage.
 import 'package:bookly/Features/home/presentation/views/widgets/book_rating.dart';
 import 'package:bookly/constants.dart';
 import 'package:bookly/core/utils/app_router.dart';
-
 import 'package:bookly/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -12,6 +11,7 @@ class BookListViewItem extends StatelessWidget {
   const BookListViewItem({super.key, required this.bookModel});
 
   final BookModel bookModel;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -26,7 +26,7 @@ class BookListViewItem extends StatelessWidget {
             AspectRatio(
               aspectRatio: 2.5 / 4,
               child: CustomBookImage(
-                  imageUrl: bookModel.volumeInfo.imageLinks.thumbnail),
+                  imageUrl: bookModel.volumeInfo.imageLinks?.thumbnail ?? ""),
             ),
             const SizedBox(
               width: 30,
@@ -68,10 +68,8 @@ class BookListViewItem extends StatelessWidget {
                       ),
                       const Spacer(),
                       BookRating(
-                        rating: bookModel.volumeInfo.averageRating ??
-                            0.0, // استخدام القيمة الافتراضية 0.0 إذا كانت null
-                        count: bookModel.volumeInfo.ratingCount ??
-                            0, // استخدام القيمة الافتراضية 0 إذا كانت null
+                        rating: bookModel.volumeInfo.averageRating ?? 0.0,
+                        count: bookModel.volumeInfo.ratingCount ?? 0,
                       ),
                     ],
                   ),
