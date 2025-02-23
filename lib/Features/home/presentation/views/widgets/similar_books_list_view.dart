@@ -18,13 +18,15 @@ class SimilarBooksListview extends StatelessWidget {
             child: ListView.builder(
               // تعيين الاتجاه الأفقي للتمرير
               scrollDirection: Axis.horizontal,
+              itemCount: state.books.length,
               itemBuilder: (context, index) {
                 // إضافة const إلى Padding لتحسين الأداء
-                return const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5),
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: CustomBookImage(
                     imageUrl:
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf6zoRR_FPG7f2knECoYTgOuETejMYPg71vg&s",
+                        state.books[index].volumeInfo.imageLinks?.thumbnail ??
+                            "",
                   ),
                 );
               },

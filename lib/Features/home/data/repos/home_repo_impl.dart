@@ -63,14 +63,15 @@ class HomeRepoImpl implements HomeRepo {
       );
     }
   }
-  
+
   @override
-  Future<Either<Failure, List<BookModel>>> fetchSimilarBooks({required String category})async {
+  Future<Either<Failure, List<BookModel>>> fetchSimilarBooks(
+      {required String category}) async {
     try {
       // جلب البيانات من API باستخدام ApiService
       var data = await apiService.get(
           endPoint:
-              "volumes?Filtering=free-ebooks&Sorting=relevance&q=subject:programming");
+              "volumes?Filtering=free-ebooks&Sorting=relevance&q=subject:$category");
 
       // تحويل البيانات إلى قائمة من BookModel
       List<BookModel> books = [];
