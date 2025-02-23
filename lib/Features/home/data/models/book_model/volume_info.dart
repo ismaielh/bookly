@@ -22,6 +22,9 @@ class VolumeInfo extends Equatable {
   final String? previewLink;
   final String? infoLink;
   final String? canonicalVolumeLink;
+  final List<String>? authors;
+  final double? averageRating; // إضافة averageRating هنا
+  final int? ratingCount; // إضافة ratingCount هنا
 
   const VolumeInfo({
     this.title,
@@ -35,11 +38,14 @@ class VolumeInfo extends Equatable {
     this.allowAnonLogging,
     this.contentVersion,
     this.panelizationSummary,
-   required this.imageLinks,
+    required this.imageLinks,
     this.language,
     this.previewLink,
     this.infoLink,
     this.canonicalVolumeLink,
+    this.authors,
+    this.averageRating, // إضافة averageRating هنا
+    this.ratingCount, // إضافة ratingCount هنا
   });
 
   factory VolumeInfo.fromJson(Map<String, dynamic> json) => VolumeInfo(
@@ -62,11 +68,16 @@ class VolumeInfo extends Equatable {
             ? null
             : PanelizationSummary.fromJson(
                 json['panelizationSummary'] as Map<String, dynamic>),
-        imageLinks: ImageLinks.fromJson(json['imageLinks'] as Map<String, dynamic>),
+        imageLinks:
+            ImageLinks.fromJson(json['imageLinks'] as Map<String, dynamic>),
         language: json['language'] as String?,
         previewLink: json['previewLink'] as String?,
         infoLink: json['infoLink'] as String?,
         canonicalVolumeLink: json['canonicalVolumeLink'] as String?,
+        authors: (json['authors'] as List<dynamic>?)?.cast<String>(),
+        averageRating:
+            json['averageRating'] as double?, // إضافة averageRating هنا
+        ratingCount: json['ratingsCount'] as int?, // إضافة ratingCount هنا
       );
 
   Map<String, dynamic> toJson() => {
@@ -82,11 +93,14 @@ class VolumeInfo extends Equatable {
         'allowAnonLogging': allowAnonLogging,
         'contentVersion': contentVersion,
         'panelizationSummary': panelizationSummary?.toJson(),
-        'imageLinks': imageLinks?.toJson(),
+        'imageLinks': imageLinks.toJson(),
         'language': language,
         'previewLink': previewLink,
         'infoLink': infoLink,
         'canonicalVolumeLink': canonicalVolumeLink,
+        'authors': authors,
+        'averageRating': averageRating, // إضافة averageRating هنا
+        'ratingsCount': ratingCount, // إضافة ratingCount هنا
       };
 
   @override
@@ -108,6 +122,9 @@ class VolumeInfo extends Equatable {
       previewLink,
       infoLink,
       canonicalVolumeLink,
+      authors,
+      averageRating, // إضافة averageRating هنا
+      ratingCount, // إضافة ratingCount هنا
     ];
   }
 }

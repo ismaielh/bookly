@@ -17,7 +17,10 @@ class BookDetailsSection extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(
               horizontal: width * .19), // استخدم النسبة لتعيين الحافة الأفقية
-          child: const CustomBookImage(imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf6zoRR_FPG7f2knECoYTgOuETejMYPg71vg&s",), // CustomBookImage عنصر ثابت لا يتغير
+          child: const CustomBookImage(
+            imageUrl:
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf6zoRR_FPG7f2knECoYTgOuETejMYPg71vg&s",
+          ), // CustomBookImage عنصر ثابت لا يتغير
         ),
         const SizedBox(
           height: 43, // استخدم const لتعيين الحجم الثابت
@@ -41,6 +44,7 @@ class BookDetailsSection extends StatelessWidget {
           height: 18, // استخدم const لتعيين الحجم الثابت
         ),
         const BookRating(
+          rating: 5, count: 250,
           mainAxisAlignment:
               MainAxisAlignment.center, // BooksRating عنصر ثابت لا يتغير
         ),

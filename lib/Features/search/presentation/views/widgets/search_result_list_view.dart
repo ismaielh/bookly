@@ -13,7 +13,8 @@ class SearchResultListView extends StatelessWidget {
         return const Padding(
           padding:
               EdgeInsets.symmetric(vertical: 10), // هوامش رأسية بين العناصر
-          child: BookListViewItem(), // عرض عنصر الكتاب
+         // child: BookListViewItem(), //// عرض عنصر الكتاب
+        child: Text("data"),
         );
       },
     );
