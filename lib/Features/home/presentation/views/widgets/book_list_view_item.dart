@@ -51,6 +51,8 @@ class BookListViewItem extends StatelessWidget {
                         ? bookModel.volumeInfo.authors![0] ?? 'Unknown Author'
                         : 'Unknown Author',
                     style: Styles.textstyle14,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 3),
                   Row(
