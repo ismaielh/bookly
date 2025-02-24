@@ -38,15 +38,18 @@ class BookListViewItem extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: Text(
-                      bookModel.volumeInfo.title!,
-                      style: Styles.textstyle20.copyWith(fontFamily: kGtSectraFine),
+                      bookModel.volumeInfo.title ?? 'Unknown Title',
+                      style: Styles.textstyle20
+                          .copyWith(fontFamily: kGtSectraFine),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   const SizedBox(height: 3),
                   Text(
-                    bookModel.volumeInfo.authors?.isNotEmpty == true ? bookModel.volumeInfo.authors![0] : 'Unknown Author',
+                    bookModel.volumeInfo.authors?.isNotEmpty == true
+                        ? bookModel.volumeInfo.authors![0] ?? 'Unknown Author'
+                        : 'Unknown Author',
                     style: Styles.textstyle14,
                   ),
                   const SizedBox(height: 3),

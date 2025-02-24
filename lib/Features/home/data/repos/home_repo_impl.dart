@@ -8,84 +8,82 @@ import 'package:dio/dio.dart';
 class HomeRepoImpl implements HomeRepo {
   final ApiService apiService;
 
-  // Constructor يأخذ ApiService كتبعية (dependency)
   HomeRepoImpl(this.apiService);
 
   @override
-  Future<Either<Failure, List<BookModel>>> fetchNewsetBooks() async {
+  Future<Either<Failure, List<BookModel>>> fetchNewsetBooks(
+      {bool forceRefresh = false}) async {
     try {
-      // جلب البيانات من API باستخدام ApiService
       var data = await apiService.get(
           endPoint:
-              "volumes?Filtering=free-ebooks&Sorting=newest&q=subject:Business & Economics");
-
-      // تحويل البيانات إلى قائمة من BookModel
+              "volumes?Filtering=free-ebooks&Sorting=newest&q=subject:computer science");
       List<BookModel> books = [];
-      for (var item in data['items']) {
+      for (var item in data['items'] ?? []) {
+        // التحقق من 'items' باستخدام ?? لتجنب null
         books.add(BookModel.fromJson(item));
       }
-
-      // إرجاع القائمة كنجاح (Right)
       return right(books);
     } on DioException catch (e) {
-      // في حالة حدوث خطأ من نوع DioException، نتعامل معه باستخدام ServerFailure
       return left(ServerFailure.fromDioError(e));
     } on Exception catch (e) {
-      // في حالة حدوث أي خطأ آخر، نرجعه كـ ServerFailure
       return left(ServerFailure(e.toString()));
     }
   }
 
   @override
-  Future<Either<Failure, List<BookModel>>> fetchFeaturedBooks() async {
+  Future<Either<Failure, List<BookModel>>> fetchFeaturedBooks(
+      {bool forceRefresh = false}) async {
     try {
-      // جلب البيانات من API باستخدام ApiService
       var data = await apiService.get(
           endPoint: "volumes?Filtering=free-ebooks&q=subject:programming");
-
-      // تحويل البيانات إلى قائمة من BookModel
       List<BookModel> books = [];
-      for (var item in data['items']) {
+      for (var item in data['items'] ?? []) {
+        // التحقق من 'items' باستخدام ?? لتجنب null
         books.add(BookModel.fromJson(item));
       }
-
-      // إرجاع القائمة كنجاح (Right)
       return right(books);
     } on DioException catch (e) {
-      // في حالة حدوث خطأ من نوع DioException، نتعامل معه باستخدام ServerFailure
       return left(ServerFailure.fromDioError(e));
     } on Exception catch (e) {
-      // في حالة حدوث أي خطأ آخر، نرجعه كـ ServerFailure
-      return left(
-        ServerFailure(
-          e.toString(),
-        ),
-      );
+      return left(ServerFailure(e.toString()));
     }
   }
 
   @override
   Future<Either<Failure, List<BookModel>>> fetchSimilarBooks(
-      {required String category}) async {
+      {required String category, bool forceRefresh = false}) async {
     try {
-      // جلب البيانات من API باستخدام ApiService
       var data = await apiService.get(
           endPoint:
               "volumes?Filtering=free-ebooks&Sorting=relevance&q=subject:$category");
-
-      // تحويل البيانات إلى قائمة من BookModel
       List<BookModel> books = [];
-      for (var item in data['items']) {
+      for (var item in data['items'] ?? []) {
+        // التحقق من 'items' باستخدام ?? لتجنب null
         books.add(BookModel.fromJson(item));
       }
-
-      // إرجاع القائمة كنجاح (Right)
       return right(books);
     } on DioException catch (e) {
-      // في حالة حدوث خطأ من نوع DioException، نتعامل معه باستخدام ServerFailure
       return left(ServerFailure.fromDioError(e));
     } on Exception catch (e) {
-      // في حالة حدوث أي خطأ آخر، نرجعه كـ ServerFailure
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<BookModel>>> fetchSearchBooks(String query,
+      {bool forceRefresh = false}) async {
+    try {
+      var data =
+          await apiService.get(endPoint: "volumes?q=$query&filter=free-ebooks");
+      List<BookModel> books = [];
+      for (var item in data['items'] ?? []) {
+        // التحقق من 'items' باستخدام ?? لتجنب null
+        books.add(BookModel.fromJson(item));
+      }
+      return right(books);
+    } on DioException catch (e) {
+      return left(ServerFailure.fromDioError(e));
+    } on Exception catch (e) {
       return left(ServerFailure(e.toString()));
     }
   }
