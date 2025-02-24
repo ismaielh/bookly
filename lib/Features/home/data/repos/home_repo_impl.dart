@@ -19,7 +19,6 @@ class HomeRepoImpl implements HomeRepo {
               "volumes?Filtering=free-ebooks&Sorting=newest&q=subject:computer science");
       List<BookModel> books = [];
       for (var item in data['items'] ?? []) {
-        // التحقق من 'items' باستخدام ?? لتجنب null
         books.add(BookModel.fromJson(item));
       }
       return right(books);
@@ -38,7 +37,6 @@ class HomeRepoImpl implements HomeRepo {
           endPoint: "volumes?Filtering=free-ebooks&q=subject:programming");
       List<BookModel> books = [];
       for (var item in data['items'] ?? []) {
-        // التحقق من 'items' باستخدام ?? لتجنب null
         books.add(BookModel.fromJson(item));
       }
       return right(books);
@@ -58,7 +56,6 @@ class HomeRepoImpl implements HomeRepo {
               "volumes?Filtering=free-ebooks&Sorting=relevance&q=subject:$category");
       List<BookModel> books = [];
       for (var item in data['items'] ?? []) {
-        // التحقق من 'items' باستخدام ?? لتجنب null
         books.add(BookModel.fromJson(item));
       }
       return right(books);
@@ -77,12 +74,47 @@ class HomeRepoImpl implements HomeRepo {
           await apiService.get(endPoint: "volumes?q=$query&filter=free-ebooks");
       List<BookModel> books = [];
       for (var item in data['items'] ?? []) {
-        // التحقق من 'items' باستخدام ?? لتجنب null
         books.add(BookModel.fromJson(item));
       }
       return right(books);
     } on DioException catch (e) {
       return left(ServerFailure.fromDioError(e));
+    } on Exception catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  @override
+  Future<Either<Failure, ({List<BookModel> books, int totalItems})>>
+      fetchAllBooks(
+          {int itemsPerPage = 40,
+          int page = 1,
+          bool forceRefresh = false}) async {
+    try {
+      int startIndex = (page - 1) * itemsPerPage;
+      int maxResults = itemsPerPage.clamp(0, 40);
+      String query = "all";
+
+      var data = await apiService.get(
+        endPoint:
+            "volumes?q=$query&filter=free-ebooks&maxResults=$maxResults&startIndex=$startIndex",
+      );
+      int totalItems = data['totalItems'] ?? 0;
+      List<BookModel> books = [];
+      for (var item in data['items'] ?? []) {
+        books.add(BookModel.fromJson(item));
+      }
+
+      if (books.isEmpty) {
+        print('No more books found at startIndex: $startIndex');
+        return right((books: [], totalItems: totalItems));
+      }
+
+      return right((books: books, totalItems: totalItems));
+    } on DioException catch (e) {
+      return left(ServerFailure.fromDioError(e) ??
+          ServerFailure('An error occurred while fetching books'));
     } on Exception catch (e) {
       return left(ServerFailure(e.toString()));
     }

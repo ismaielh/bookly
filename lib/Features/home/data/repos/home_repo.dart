@@ -3,8 +3,15 @@ import 'package:bookly/core/errors/failures.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class HomeRepo {
-  Future<Either<Failure, List<BookModel>>> fetchNewsetBooks({bool forceRefresh = false});
-  Future<Either<Failure, List<BookModel>>> fetchFeaturedBooks({bool forceRefresh = false});
-  Future<Either<Failure, List<BookModel>>> fetchSimilarBooks({required String category, bool forceRefresh = false});
-  Future<Either<Failure, List<BookModel>>> fetchSearchBooks(String query, {bool forceRefresh = false});
+  Future<Either<Failure, List<BookModel>>> fetchNewsetBooks(
+      {bool forceRefresh = false});
+  Future<Either<Failure, List<BookModel>>> fetchFeaturedBooks(
+      {bool forceRefresh = false});
+  Future<Either<Failure, List<BookModel>>> fetchSimilarBooks(
+      {required String category, bool forceRefresh = false});
+  Future<Either<Failure, List<BookModel>>> fetchSearchBooks(String query,
+      {bool forceRefresh = false});
+  Future<Either<Failure, ({List<BookModel> books, int totalItems})>>
+      fetchAllBooks(
+          {int itemsPerPage = 40, int page = 1, bool forceRefresh = false});
 }
