@@ -1,4 +1,3 @@
-
 import 'package:bookly/Features/home/presentation/manger/newset_books_cubit/newset_books_cubit.dart';
 import 'package:bookly/Features/home/presentation/views/widgets/book_list_view_item.dart';
 import 'package:bookly/core/widgets/custom_error_widget.dart';
@@ -17,8 +16,9 @@ class BestSellerListView extends StatelessWidget {
       builder: (context, state) {
         if (state is NewsetBooksSuccess) {
           return ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true, // لضبط الحجم المناسب بناءً على المحتوى
             padding: EdgeInsets.zero,
+            physics: const NeverScrollableScrollPhysics(), // منع التمرير الداخلي للسماح لـ CustomScrollView بالتحكم
             itemCount: state.books.length,
             itemBuilder: (context, index) {
               return Padding(
