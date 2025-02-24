@@ -22,11 +22,11 @@ class BookListViewItem extends StatelessWidget {
         height: 125,
         child: Row(
           children: [
-            // عرض غلاف الكتاب
             AspectRatio(
               aspectRatio: 2.5 / 4,
               child: CustomBookImage(
-                  imageUrl: bookModel.volumeInfo.imageLinks?.thumbnail ?? ""),
+                imageUrl: bookModel.volumeInfo.imageLinks?.thumbnail ?? "",
+              ),
             ),
             const SizedBox(
               width: 30,
@@ -35,29 +35,21 @@ class BookListViewItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // عنوان الكتاب
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * .5,
+                    width: MediaQuery.of(context).size.width * 0.5,
                     child: Text(
                       bookModel.volumeInfo.title!,
-                      style: Styles.textstyle20
-                          .copyWith(fontFamily: kGtSectraFine),
+                      style: Styles.textstyle20.copyWith(fontFamily: kGtSectraFine),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  const SizedBox(
-                    height: 3,
-                  ),
-                  // مؤلف الكتاب
+                  const SizedBox(height: 3),
                   Text(
-                    bookModel.volumeInfo.authors![0],
+                    bookModel.volumeInfo.authors?.isNotEmpty == true ? bookModel.volumeInfo.authors![0] : 'Unknown Author',
                     style: Styles.textstyle14,
                   ),
-                  const SizedBox(
-                    height: 3,
-                  ),
-                  // سعر الكتاب
+                  const SizedBox(height: 3),
                   Row(
                     children: [
                       Text(

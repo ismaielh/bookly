@@ -2,15 +2,16 @@ import 'package:bookly/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({
+   CustomButton({
     super.key,
     required this.backgroundColor, // لون خلفية الزر
     required this.textColor, // لون نص الزر
     this.borderRadius, // زوايا التدوير (اختياري)
     required this.text, // النص المعروض على الزر
     this.fontSize, // حجم الخط (اختياري)
+     this.onPressed,
   });
-
+void Function()? onPressed;
   final String text;
   final Color backgroundColor;
   final Color textColor;
@@ -22,7 +23,7 @@ class CustomButton extends StatelessWidget {
     return SizedBox(
       height: 48, // ارتفاع ثابت للزر
       child: TextButton(
-        onPressed: () {}, // وظيفة الزر (يمكن إضافتها لاحقًا)
+        onPressed:onPressed, // وظيفة الزر (يمكن إضافتها لاحقًا)
         style: TextButton.styleFrom(
           backgroundColor: backgroundColor, // لون الخلفية
           shape: RoundedRectangleBorder(

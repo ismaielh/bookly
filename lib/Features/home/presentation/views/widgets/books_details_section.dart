@@ -53,7 +53,7 @@ class BookDetailsSection extends StatelessWidget {
         const SizedBox(
           height: 37, // استخدم const لتعيين الحجم الثابت
         ),
-        const BooksAction(), // BooksAction عنصر ثابت لا يتغير
+         BooksAction(bookModel:book ,), // BooksAction عنصر ثابت لا يتغير
       ],
     );
   }
