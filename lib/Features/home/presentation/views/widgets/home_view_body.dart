@@ -2,10 +2,8 @@ import 'package:bookly/Features/home/presentation/views/widgets/all_books_list_v
 import 'package:bookly/Features/home/presentation/views/widgets/best_seller_list_view.dart';
 import 'package:bookly/Features/home/presentation/views/widgets/custom_app_bar.dart';
 import 'package:bookly/Features/home/presentation/views/widgets/featured_list_view.dart';
-import 'package:bookly/core/utils/app_router.dart';
 import 'package:bookly/core/utils/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class HomeViewBody extends StatefulWidget {
   const HomeViewBody({super.key});
@@ -62,7 +60,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const BestSellerListView(),
                 const SizedBox(height: 20),

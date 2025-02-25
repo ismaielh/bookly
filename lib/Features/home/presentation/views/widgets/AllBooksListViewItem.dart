@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 /// A [StatefulWidget] that displays a paginated list of all books from the Google Books API,
-/// limited to 13 pages with 40 books per page.
+/// limited to 13 pages with 40 books per page, with pull-to-refresh support.
 class AllBooksListView extends StatefulWidget {
   const AllBooksListView({super.key});
 
@@ -156,48 +156,53 @@ class _AllBooksListViewState extends State<AllBooksListView> {
 
   @override
   Widget build(BuildContext context) {
-    return _isLoading
-        ? const Center(child: CircularProgressIndicator(color: Colors.blue))
-        : _books.isEmpty
-            ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+    return RefreshIndicator(
+      onRefresh: _fetchBooks, // Trigger refresh when pulled down
+      color: Colors.blue, // Color of the refresh indicator
+      child: _isLoading
+          ? const Center(child: CircularProgressIndicator(color: Colors.blue))
+          : _books.isEmpty
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "No books found on this page",
+                        style: TextStyle(color: Colors.grey, fontSize: 16),
+                      ),
+                      const SizedBox(height: 16),
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back_ios,
+                            color: Colors.blue),
+                        onPressed: _currentPage > 1
+                            ? () => GoRouter.of(context).pop()
+                            : null,
+                        tooltip: "Back to previous page",
+                      ),
+                    ],
+                  ),
+                )
+              : Column(
                   children: [
-                    const Text(
-                      "No books found on this page",
-                      style: TextStyle(color: Colors.grey, fontSize: 16),
+                    Expanded(
+                      child: ListView.builder(
+                        controller: _scrollController,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 30, vertical: 16),
+                        itemCount: _books.length,
+                        itemExtent:
+                            160, // Increased height to accommodate longer text
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: BookListViewItem(bookModel: _books[index]),
+                          );
+                        },
+                      ),
                     ),
-                    const SizedBox(height: 16),
-                    IconButton(
-                      icon:
-                          const Icon(Icons.arrow_back_ios, color: Colors.blue),
-                      onPressed: _currentPage > 1
-                          ? () => GoRouter.of(context).pop()
-                          : null,
-                      tooltip: "Back to previous page",
-                    ),
+                    _buildPaginationControls(), // Use the combined pagination with arrows
                   ],
                 ),
-              )
-            : Column(
-                children: [
-                  Expanded(
-                    child: ListView.builder(
-                      controller: _scrollController,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 16),
-                      itemCount: _books.length,
-                      itemExtent: 130, // Consistent height for each book item
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: BookListViewItem(bookModel: _books[index]),
-                        );
-                      },
-                    ),
-                  ),
-                  _buildPaginationControls(), // Use the combined pagination with arrows
-                ],
-              );
+    );
   }
 }
